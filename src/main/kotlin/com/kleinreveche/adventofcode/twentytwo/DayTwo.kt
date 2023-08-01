@@ -14,8 +14,10 @@ fun dayTwo() {
             secondScores.add(partTwoScores(it))
         }
     }
+    println("--- Day 2: Rock Paper Scissors ---")
     println("Your Score is ${scores.sum()}")
     println("After the new instructions, your new score is ${secondScores.sum()}")
+    println()
 }
 
 data class DayTwoMoves(val opponent: Char, val player: Char)
@@ -78,7 +80,7 @@ private fun readDayTwoData(input: String): MutableList<List<DayTwoMoves>> {
     return moves
 }
 
-val dayTwoInput = """
+private val dayTwoInput = """
     B Z
     A Z
     B Z

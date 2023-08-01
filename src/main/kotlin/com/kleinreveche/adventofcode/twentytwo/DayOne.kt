@@ -1,17 +1,18 @@
 package com.kleinreveche.adventofcode.twentytwo
 
 //--- Day 1: Calorie Counting --- https://adventofcode.com/2022/day/1
-fun dayOne() {
-    println("Day 1: Calorie Counting")
+fun dayOne(showMore: Boolean = false) {
     val records = readDayOneData(dayOneInput)
     val recordsDescending = records.sortedDescending()
     val top3TotalCalories = recordsDescending[0] + recordsDescending[1] + recordsDescending[2]
 
-    records.forEachIndexed { idx, count ->
-        println("Elf Calories ${idx+1}: $count")
+    if (showMore) {
+        records.forEachIndexed { idx, count ->
+            println("Elf Calories ${idx + 1}: $count")
+        }
     }
-
     println()
+    println("--- Day 1: Calorie Counting ---")
     println("Elf with most calories carried: Elf ${records.indexOf(records.max()) + 1} with ${records.max()}")
     println("Top 3 Elves carrying the most calories: " +
             "Elf ${records.indexOf(recordsDescending[0])}, " +
@@ -40,7 +41,7 @@ private fun readDayOneData(input: String): MutableList<Int> {
 }
 
 
-val dayOneInput = """
+private val dayOneInput = """
         2936
         2154
         1578
