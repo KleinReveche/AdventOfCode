@@ -1,6 +1,6 @@
 package com.kleinreveche.adventofcode.twentytwo
 
-//Calorie Counting
+//--- Day 1: Calorie Counting --- https://adventofcode.com/2022/day/1
 fun dayOne() {
     println("Day 1: Calorie Counting")
     val records = readDayOneData(dayOneInput)
