@@ -1,3 +1,4 @@
+import com.kleinreveche.adventofcode.twentytwo.dayFour
 import com.kleinreveche.adventofcode.twentytwo.dayOne
 import com.kleinreveche.adventofcode.twentytwo.dayThree
 import com.kleinreveche.adventofcode.twentytwo.dayTwo
@@ -9,4 +10,5 @@ fun main() {
     dayOne()
     dayTwo()
     dayThree()
+    dayFour()
 }
