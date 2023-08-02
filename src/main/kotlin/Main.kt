@@ -11,4 +11,5 @@ fun main() {
     dayThree(showProblem)
     dayFour(showProblem)
     dayFive(showProblem)
+    daySix(showProblem)
 }
