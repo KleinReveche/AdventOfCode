@@ -1,7 +1,7 @@
 package com.kleinreveche.adventofcode.twentytwo
 
 //--- Day 1: Calorie Counting --- https://adventofcode.com/2022/day/1
-fun dayOne(showMore: Boolean = false) {
+fun dayOne(showProblem: Boolean, showMore: Boolean = false) {
     val records = readDayOneData(dayOneInput)
     val recordsDescending = records.sortedDescending()
     val top3TotalCalories = recordsDescending[0] + recordsDescending[1] + recordsDescending[2]
@@ -13,12 +13,23 @@ fun dayOne(showMore: Boolean = false) {
     }
     println()
     println("--- Day 1: Calorie Counting ---")
-    println("Elf with most calories carried: Elf ${records.indexOf(records.max()) + 1} with ${records.max()}")
-    println("Top 3 Elves carrying the most calories: " +
+    if (showProblem) {
+        println()
+        println("The jungle must be too overgrown and difficult to navigate in vehicles or access from the air; " +
+                "the Elves' expedition traditionally goes on foot. \n" +
+                "As your boats approach land, the Elves begin taking inventory of their supplies.\n" +
+                "One important consideration is food - in particular, the number of Calories each Elf is carrying.\n\n" +
+                "   > Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?\n" +
+                "   > Find the top three Elves carrying the most Calories. How many Calories are those Elves carrying in total?")
+        println()
+        println("Answer:")
+    }
+    println("   The Elf with most calories carried was Elf ${records.indexOf(records.max()) + 1} with ${records.max()}")
+    println("   Top 3 Elves carrying the most calories: " +
             "Elf ${records.indexOf(recordsDescending[0])}, " +
-            "${records.indexOf(recordsDescending[1])}, " +
-            "${records.indexOf(recordsDescending[2])} " +
-            "with $top3TotalCalories")
+            "Elf ${records.indexOf(recordsDescending[1])}, " +
+            "Elf ${records.indexOf(recordsDescending[2])} " +
+            "with a combined $top3TotalCalories")
     println()
 }
 

@@ -1,7 +1,7 @@
 package com.kleinreveche.adventofcode.twentytwo
 
 //--- Day 3: Rucksack Reorganization --- https://adventofcode.com/2022/day/3
-fun dayThree() {
+fun dayThree(showProblem: Boolean) {
     val data = readDayThreeData(dayThreeInput)
     val groupedData = data.chunked(3)
     var sum = 0
@@ -18,8 +18,17 @@ fun dayThree() {
     }
 
     println("--- Day 3: Rucksack Reorganization ---")
-    println("The sum of all item type priorities of all the Elves' rucksack are: $sum")
-    println("Also, all item type priorities of three grouped Elves' rucksack are: $groupedSum")
+    if(showProblem) {
+        println()
+        println("One Elf has the important job of loading all of the rucksacks with supplies for the jungle journey.\n" +
+                "Unfortunately, that Elf didn't quite follow the packing instructions, and so a few items now need to be rearranged.\n\n" +
+                "   > Find the item type that appears in both compartments of each rucksack. What is the sum of the priorities of those item types?\n" +
+                "   > Find the item type that corresponds to the badges of each three-Elf group. What is the sum of the priorities of those item types?")
+        println()
+        println("Answer:")
+    }
+    println("   The sum of all item type priorities of all the Elves' rucksack are: $sum")
+    println("   Also, all item type priorities of three grouped Elves' rucksack are: $groupedSum")
     println()
 }
 

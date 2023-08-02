@@ -3,7 +3,7 @@ package com.kleinreveche.adventofcode.twentytwo
 import java.lang.IllegalArgumentException
 
 //--- Day 2: Rock Paper Scissors --- https://adventofcode.com/2022/day/2
-fun dayTwo() {
+fun dayTwo(showProblem: Boolean) {
     val moves = readDayTwoData(dayTwoInput)
     val scores = mutableListOf<Int>()
     val secondScores = mutableListOf<Int>()
@@ -15,8 +15,20 @@ fun dayTwo() {
         }
     }
     println("--- Day 2: Rock Paper Scissors ---")
-    println("Your Score is ${scores.sum()}")
-    println("After the new instructions, your new score is ${secondScores.sum()}")
+    if (showProblem) {
+        println()
+        println("The Elves begin to set up camp on the beach. \n" +
+                "To decide whose tent gets to be closest to the snack storage, a giant Rock Paper Scissors tournament is already in progress.\n\n" +
+                "Appreciative of your help yesterday, one Elf gives you an encrypted strategy guide that they say will be sure to help you win.\n" +
+                "Suddenly, the Elf is called away to help with someone's tent.\n" +
+                "Since you can't be sure if the Elf is trying to help you or trick you, you should calculate the score you would get if you were to follow the strategy guide.\n\n" +
+                "   > What would your total score be if everything goes exactly according to your strategy guide?\n" +
+                "   > The Elf came back, and gave you new instructions on how to play, What would your total score be if everything goes exactly according to your strategy guide?")
+        println()
+        println("Answer:")
+    }
+    println("   Your score is ${scores.sum()}")
+    println("   After the new instructions, your new score is ${secondScores.sum()}")
     println()
 }
 

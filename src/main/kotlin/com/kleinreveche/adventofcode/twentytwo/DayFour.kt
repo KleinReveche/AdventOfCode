@@ -1,19 +1,34 @@
 package com.kleinreveche.adventofcode.twentytwo
 
 //--- Day 4: Camp Cleanup --- https://adventofcode.com/2022/day/4
-fun dayFour(showMore: Boolean = false) {
+fun dayFour(showProblem: Boolean, showMore: Boolean = false) {
     val data = readDayFourData(dayFourInput)
     val checkedRange = checkForRange(data)
     val checkedOverlap = checkForRange(data, true)
 
     println("--- Day 4: Camp Cleanup ---")
-    println("The Assignment Pairs that one range fully contain the other are: ${checkedRange.sum()}")
-    println("The Assignment Pairs where the ranges overlap are: ${checkedOverlap.sum()}")
+    if (showProblem) {
+        println()
+        println("Space needs to be cleared before the last supplies can be unloaded from the ships," +
+                "and so several Elves have been assigned the job of cleaning up sections of the camp.\n" +
+                "Every section has a unique ID number, and each Elf is assigned a range of section IDs.\n" +
+                "However, as some of the Elves compare their section assignments with each other, " +
+                "they've noticed that many of the assignments overlap.\n" +
+                "To try to quickly find overlaps and reduce duplicated effort, " +
+                "the Elves pair up and make a big list of the section assignments for each pair.\n\n" +
+                "   > In how many assignment pairs does one range fully contain the other?\n" +
+                "   > In how many assignment pairs do the ranges overlap?")
+        println()
+        println("Answer:")
+    }
+    println("   The Assignment Pairs that one range fully contain the other are: ${checkedRange.sum()}")
+    println("   The Assignment Pairs where the ranges overlap are: ${checkedOverlap.sum()}")
     if (showMore) {
         println(data)
         println(checkedRange)
         println(checkedOverlap)
     }
+    println()
 }
 
 private data class DayFourRange(val range1: IntRange, val range2: IntRange)

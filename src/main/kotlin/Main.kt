@@ -1,14 +1,14 @@
-import com.kleinreveche.adventofcode.twentytwo.dayFour
-import com.kleinreveche.adventofcode.twentytwo.dayOne
-import com.kleinreveche.adventofcode.twentytwo.dayThree
-import com.kleinreveche.adventofcode.twentytwo.dayTwo
+import com.kleinreveche.adventofcode.twentytwo.*
 
 fun main() {
     println("Hello World!")
     println("Welcome to the 2022 Advent of Code!")
 
-    dayOne()
-    dayTwo()
-    dayThree()
-    dayFour()
+    val showProblem = true
+
+    dayOne(showProblem)
+    dayTwo(showProblem)
+    dayThree(showProblem)
+    dayFour(showProblem)
+    dayFive(showProblem)
 }
