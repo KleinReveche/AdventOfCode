@@ -9,8 +9,7 @@ class DayFour
 
     internal static void Solve()
     {
-        List<SectionIdRange> sectionIdRange = new();
-        string input = ReadInput("day4");
+        string input = ReadInput("day04");
         ReadDataAndCheck(input, out int inRangeCount, out int overlappedRangeCount);
 
         Console.WriteLine(" --- 2022 Day 4: Camp Cleanup ---\n");

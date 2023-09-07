@@ -8,7 +8,7 @@ class DayTwo
 
     internal static void Solve()
     {
-        string input = ReadInput("day2");
+        string input = ReadInput("day02");
         int scores = 0, altStrategyScore = 0;
         StringReader inputLines = new(input);
         List<Moves> movesList = new(); 

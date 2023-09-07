@@ -8,7 +8,7 @@ class DayThree
     internal static void Solve()
     {
         int sum = 0, groupedSum = 0;
-        string input = ReadInput("day3");
+        string input = ReadInput("day03");
         List<RucksackItems> rucksackItems = new();
         List<List<RucksackItems>> groupedRucksackItems = new();
 

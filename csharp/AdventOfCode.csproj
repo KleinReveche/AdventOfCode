@@ -8,23 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\input\2022\day4.txt" Link="TwentyTwo\input\day4.txt" />
+    <EmbeddedResource Include="..\inputs\twentytwo\day04.txt" Link="TwentyTwo\inputs\day04.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\input\2022\day3.txt" Link="TwentyTwo\input\day3.txt" />
+    <EmbeddedResource Include="..\inputs\twentytwo\day03.txt" Link="TwentyTwo\inputs\day03.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\input\2022\day2.txt" Link="TwentyTwo\input\day2.txt" />
+    <EmbeddedResource Include="..\inputs\twentytwo\day02.txt" Link="TwentyTwo\inputs\day02.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\input\2022\day1.txt" Link="TwentyTwo\input\day1.txt" />
+    <EmbeddedResource Include="..\inputs\twentytwo\day01.txt" Link="TwentyTwo\inputs\day01.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TwentyTwo\input\" />
+    <Folder Include="TwentyTwo\inputs\" />
   </ItemGroup>
 
 </Project>

@@ -9,7 +9,7 @@ class DayOne
         var records = new List<int>();
         var currentSum = 0;
 
-        string input = Application.ReadInput("day1");
+        string input = Application.ReadInput("day01");
         
         ReadRecords(records, currentSum, input);
 
