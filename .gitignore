@@ -1,0 +1,5 @@
+.vscode/
+*/.vs/
+.idea/
+csharp/bin/
+csharp/obj/

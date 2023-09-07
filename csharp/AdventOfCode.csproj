@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\input\2022\day4.txt" Link="TwentyTwo\input\day4.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\input\2022\day3.txt" Link="TwentyTwo\input\day3.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\input\2022\day2.txt" Link="TwentyTwo\input\day2.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\input\2022\day1.txt" Link="TwentyTwo\input\day1.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TwentyTwo\input\" />
+  </ItemGroup>
+
+</Project>
