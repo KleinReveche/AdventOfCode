@@ -43,3 +43,4 @@ bin/
 .DS_Store
 
 !**/src/main/resources/inputs
+/src/main/resources/inputs/twentytwo/*

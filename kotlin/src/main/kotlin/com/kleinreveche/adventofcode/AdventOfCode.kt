@@ -14,6 +14,7 @@ fun main() {
     DayFour().solve()
     DayFive(showMore).solve()
     DaySix().solve()
+    DaySeven().solve()
 }
 
 interface Solver {
