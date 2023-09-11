@@ -1,48 +1,42 @@
 package com.kleinreveche.adventofcode.twentytwo
 
+import com.kleinreveche.adventofcode.Solver
 import com.kleinreveche.adventofcode.Utils
 
-//--- Day 4: Camp Cleanup --- https://adventofcode.com/2022/day/4
-fun dayFour() {
-    val data = readDayFourData()
-    val (inRangeCount, overlappedCount) = checkForRange(data)
+/** --- Day 4: Camp Cleanup --- https://adventofcode.com/2022/day/4 */
+class DayFour : Solver {
+    override fun solve() {
+        val (inRangeCount, overlappedCount) = parseData()
 
-    println(" --- 2022 Day 4: Camp Cleanup ---\n")
-    println("   The Assignment Pairs that one range fully contain the other are: $inRangeCount")
-    println("   The Assignment Pairs where the ranges overlap are: $overlappedCount\n")
-}
-
-private data class DayFourRange(val range1: IntRange, val range2: IntRange)
-
-private fun checkForRange(input: List<DayFourRange>): Pair<Int, Int> {
-    var inRange = 0
-    var overlap = 0
-
-    input.forEach {
-
-        val range1WithinRange2 = it.range1.first >= it.range2.first && it.range1.last <= it.range2.last
-        val range2WithinRange1 = it.range2.first >= it.range1.first && it.range2.last <= it.range1.last
-        val overlapToLeft = it.range1.last < it.range2.first
-        val overlapToRight = it.range1.first > it.range2.last
-
-        if (range1WithinRange2 || range2WithinRange1) inRange++
-        if (!(overlapToLeft || overlapToRight)) overlap++
+        println(" --- 2022 Day 4: Camp Cleanup ---\n")
+        println("   The Assignment Pairs that one range fully contain the other are: $inRangeCount")
+        println("   The Assignment Pairs where the ranges overlap are: $overlappedCount\n")
     }
 
-    return Pair(inRange, overlap)
-}
-private fun readDayFourData(): List<DayFourRange> {
-    val sections = Utils.readInput("twentytwo", "day04")!!.trim().lines()
-    val separatedItems = mutableListOf<DayFourRange>()
+    override fun parseData(): Pair<Int, Int> {
+        var inRange = 0
+        var overlap = 0
+        val sections = Utils.readInput("twentytwo", "day04")!!.trim().lines()
 
-    sections.forEach { section ->
-        val (first, second) = section.split(",")
-        val (firstValue, secondValue) = first.split("-")
-        val (thirdValue, fourthValue) = second.split("-")
-        val firstRange = (firstValue.toInt()..secondValue.toInt())
-        val secondRange = (thirdValue.toInt()..fourthValue.toInt())
-        separatedItems.add(DayFourRange(firstRange, secondRange))
+        sections.forEach { section ->
+            val (first, second) = section.split(",")
+            val (firstValue, secondValue) = first.split("-")
+            val (thirdValue, fourthValue) = second.split("-")
+
+            val start1 = firstValue.toInt()
+            val end1 = secondValue.toInt()
+            val start2 = thirdValue.toInt()
+            val end2 = fourthValue.toInt()
+
+            if ((start1 >= start2 && end1 <= end2) || (start2 >= start1 && end2 <= end1))
+                inRange++
+            if (!(end1 < start2 || start1 > end2)) overlap++
+        }
+
+        return Pair(inRange, overlap)
     }
 
-    return separatedItems
+    override fun parseData(input: Int): Any {
+        return 0
+    }
 }

@@ -8,17 +8,22 @@ fun main() {
 
     val showMore = false
 
-    dayOne()
-    dayTwo()
-    dayThree()
-    dayFour()
-    dayFive(showMore)
-    daySix()
+    DayOne().solve()
+    DayTwo().solve()
+    DayThree().solve()
+    DayFour().solve()
+    DayFive(showMore).solve()
+    DaySix().solve()
+}
+
+interface Solver {
+    fun solve()
+    fun parseData(): Any
+    fun parseData(input: Int): Any
 }
 
 object Utils {
-    fun readInput(year: String, day: String): String?
-    {
+    fun readInput(year: String, day: String): String? {
         val resourceName = "/inputs/$year/$day.txt" // Adjust the resource path accordingly
         val inputStream = this::class.java.getResourceAsStream(resourceName)
 
