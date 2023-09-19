@@ -8,11 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\inputs\twentytwo\day04.txt" Link="TwentyTwo\inputs\day04.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="..\inputs\twentytwo\day03.txt" Link="TwentyTwo\inputs\day03.txt" />
+    <EmbeddedResource Include="..\inputs\twentytwo\day01.txt" Link="TwentyTwo\inputs\day01.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +16,95 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\inputs\twentytwo\day01.txt" Link="TwentyTwo\inputs\day01.txt" />
+    <EmbeddedResource Include="..\inputs\twentytwo\day03.txt" Link="TwentyTwo\inputs\day03.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day04.txt" Link="TwentyTwo\inputs\day04.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day05.txt" Link="TwentyTwo\inputs\day05.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day06.txt" Link="TwentyTwo\inputs\day06.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day07.txt" Link="TwentyTwo\inputs\day07.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day08.txt" Link="TwentyTwo\inputs\day08.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day09.txt" Link="TwentyTwo\inputs\day09.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day10.txt" Link="TwentyTwo\inputs\day10.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day11.txt" Link="TwentyTwo\inputs\day11.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day12.txt" Link="TwentyTwo\inputs\day12.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day13.txt" Link="TwentyTwo\inputs\day13.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day14.txt" Link="TwentyTwo\inputs\day14.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day15.txt" Link="TwentyTwo\inputs\day15.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day16.txt" Link="TwentyTwo\inputs\day16.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day17.txt" Link="TwentyTwo\inputs\day17.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day18.txt" Link="TwentyTwo\inputs\day18.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day19.txt" Link="TwentyTwo\inputs\day19.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day20.txt" Link="TwentyTwo\inputs\day20.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day21.txt" Link="TwentyTwo\inputs\day21.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day22.txt" Link="TwentyTwo\inputs\day22.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day23.txt" Link="TwentyTwo\inputs\day23.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day24.txt" Link="TwentyTwo\inputs\day24.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\inputs\twentytwo\day25.txt" Link="TwentyTwo\inputs\day25.txt" />
   </ItemGroup>
 
   <ItemGroup>

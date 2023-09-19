@@ -2,13 +2,13 @@
 
 namespace AdventOfCode.TwentyTwo;
 
-class DayTwo
+internal static class DayTwo
 {
-    record class Moves(char OpponentChoice, char PlayerChoice);
+    private record Moves(char OpponentChoice, char PlayerChoice);
 
     internal static void Solve()
     {
-        string input = ReadInput("day02");
+        var input = ReadInput("day02");
         int scores = 0, altStrategyScore = 0;
         StringReader inputLines = new(input);
         List<Moves> movesList = new(); 
@@ -23,18 +23,9 @@ class DayTwo
         Console.WriteLine(" --- 2022 Day 2: Rock Paper Scissors ---\n");
         Console.WriteLine($"   Your score is {scores}.");
         Console.WriteLine($"   After the new instructions, your new score is {altStrategyScore}.\n");
-
-
-        List<TwentyTwoTreeLineContent> dayTwoLine = new()
-        {
-            new TwentyTwoTreeLineContent(ConsoleColor.Yellow, "-~------'"),
-            new TwentyTwoTreeLineContent(ConsoleColor.Gray, "    ~    ~ "),
-            new TwentyTwoTreeLineContent(ConsoleColor.Yellow, "'--~-----~-~----___________--")
-        };
-        TwentyTwoTree.Add(dayTwoLine);
     }
 
-    static void ReadMoves(List<Moves> movesList, StringReader inputLines)
+    private static void ReadMoves(ICollection<Moves> movesList, TextReader inputLines)
     {
         while (true)
         {
@@ -42,7 +33,7 @@ class DayTwo
 
             if (line != null)
             {
-                string[] lineSplit = line.Split(' ');
+                var lineSplit = line.Split(' ');
                 movesList.Add(
                     new Moves(
                         char.Parse(lineSplit[0]),
@@ -54,34 +45,35 @@ class DayTwo
         }
     }
 
-    static int CheckScore(Moves moves)
+    private static int CheckScore(Moves moves)
     {
         var playerChoice = moves.PlayerChoice;
         var opponentChoice = moves.OpponentChoice;
-        int playerWinScore;
 
-        switch (playerChoice)
+        var playerWinScore = playerChoice switch
         {
-            case 'X':
-                if (opponentChoice == 'C') playerWinScore = 6;
-                else if (opponentChoice == 'A') playerWinScore = 3;
-                else playerWinScore = 0;
-                break;
-            case 'Y':
-                if (opponentChoice == 'A') playerWinScore = 6;
-                else if (opponentChoice == 'B') playerWinScore = 3;
-                else playerWinScore = 0;
-                break;
-            case 'Z':
-                if (opponentChoice == 'B') playerWinScore = 6;
-                else if (opponentChoice == 'C') playerWinScore = 3; 
-                else playerWinScore = 0;
-                break;
-            default:
-                throw new Exception("Wrong Input, Check Data");
-        }
+            'X' => opponentChoice switch
+            {
+                'C' => 6,
+                'A' => 3,
+                _ => 0
+            },
+            'Y' => opponentChoice switch
+            {
+                'A' => 6,
+                'B' => 3,
+                _ => 0
+            },
+            'Z' => opponentChoice switch
+            {
+                'B' => 6,
+                'C' => 3,
+                _ => 0
+            },
+            _ => throw new Exception("Wrong Input, Check Data")
+        };
 
-        int playScore = playerChoice switch
+        var playScore = playerChoice switch
         {
             'X' => 1,
             'Y' => 2,
@@ -92,32 +84,33 @@ class DayTwo
         return playerWinScore + playScore;
     }
 
-    static int AlternateStrategy(Moves moves)
+    private static int AlternateStrategy(Moves moves)
     {
         var strategy = moves.PlayerChoice;
         var opponentChoice = moves.OpponentChoice;
-        char playerMove;
 
-        switch (strategy)
+        var playerMove = strategy switch
         {
-            case 'X':
-                if (opponentChoice == 'A') playerMove = 'Z';
-                else if (opponentChoice == 'B') playerMove = 'X';
-                else playerMove = 'Y';
-                break;
-            case 'Y':
-                if (opponentChoice == 'A') playerMove = 'X';
-                else if (opponentChoice == 'B') playerMove = 'Y';
-                else playerMove = 'Z';
-                break;
-            case 'Z':
-                if (opponentChoice == 'A') playerMove = 'Y';
-                else if (opponentChoice == 'B') playerMove = 'Z'; 
-                else playerMove = 'X';
-                break;
-            default:
-                throw new Exception("Wrong Input, Check Data");
-        }
+            'X' => opponentChoice switch
+            {
+                'A' => 'Z',
+                'B' => 'X',
+                _ => 'Y'
+            },
+            'Y' => opponentChoice switch
+            {
+                'A' => 'X',
+                'B' => 'Y',
+                _ => 'Z'
+            },
+            'Z' => opponentChoice switch
+            {
+                'A' => 'Y',
+                'B' => 'Z',
+                _ => 'X'
+            },
+            _ => throw new Exception("Wrong Input, Check Data")
+        };
 
         return CheckScore(new Moves(moves.OpponentChoice, playerMove));
     }

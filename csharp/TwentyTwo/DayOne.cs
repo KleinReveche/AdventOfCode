@@ -2,19 +2,18 @@
 
 namespace AdventOfCode.TwentyTwo;
 
-class DayOne
+internal static class DayOne
 {
     internal static void Solve()
     {
         var records = new List<int>();
-        var currentSum = 0;
-
-        string input = Application.ReadInput("day01");
+        const int currentSum = 0;
+        var input = Application.ReadInput("day01");
         
         ReadRecords(records, currentSum, input);
 
-        int max = records.Max();
-        List<int> recordsDesc = records.ToList();
+        var max = records.Max();
+        var recordsDesc = records.ToList();
         recordsDesc.Sort();
         recordsDesc.Reverse();
 
@@ -28,15 +27,9 @@ class DayOne
         $"Elf {records.IndexOf(recordsDesc[1])}, " +
         $"Elf {records.IndexOf(recordsDesc[2])} " +
         $"with a combined {top3TotalCalories}\n");
-
-        List<TwentyTwoTreeLineContent> dayOneLine = new()
-        {
-            new TwentyTwoTreeLineContent(ConsoleColor.Gray, "  ~    ~  ~      ~     ~ ~   ~     ~  ~  ~   ~   ")
-        };
-        TwentyTwoTree.Add(dayOneLine);
     }
 
-    private static int ReadRecords(List<int> records, int currentSum, string input)
+    private static int ReadRecords(ICollection<int> records, int currentSum, string input)
     {
         StringReader inputLines = new(input);
 
