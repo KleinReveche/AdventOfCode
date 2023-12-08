@@ -1,17 +1,28 @@
-﻿using static AdventOfCode.Application;
+﻿using AdventOfCode.Lib;
 
-namespace AdventOfCode.TwentyTwo;
+namespace AdventOfCode.TwentyTwo.Day02;
 
-internal static class DayTwo
+[Problem(Year.TwentyTwo, "Day02", "Rock Paper Scissors")]
+public class Solution(string input) : ISolution
 {
-    private record Moves(char OpponentChoice, char PlayerChoice);
-
-    internal static void Solve()
+    public object PartOne()
     {
-        var input = ReadInput("day02");
-        int scores = 0, altStrategyScore = 0;
+        var scores = Solve(false);
+        return $"Your score is {scores}.";
+    }
+
+    public object PartTwo()
+    {
+        var altStrategyScore = Solve(true);
+        return $"After the new instructions, your new score is {altStrategyScore}.";
+    }
+
+    private int Solve(bool isAlternateStrategyUsed)
+    {
+        var scores = 0;
+        var altStrategyScore = 0;
         StringReader inputLines = new(input);
-        List<Moves> movesList = new(); 
+        List<Moves> movesList = [];
         ReadMoves(movesList, inputLines);
 
         foreach (var moves in movesList)
@@ -20,9 +31,7 @@ internal static class DayTwo
             altStrategyScore += AlternateStrategy(moves);
         }
 
-        Console.WriteLine(" --- 2022 Day 2: Rock Paper Scissors ---\n");
-        Console.WriteLine($"   Your score is {scores}.");
-        Console.WriteLine($"   After the new instructions, your new score is {altStrategyScore}.\n");
+        return isAlternateStrategyUsed ? altStrategyScore : scores;
     }
 
     private static void ReadMoves(ICollection<Moves> movesList, TextReader inputLines)
@@ -38,10 +47,13 @@ internal static class DayTwo
                     new Moves(
                         char.Parse(lineSplit[0]),
                         char.Parse(lineSplit[1])
-                        )
-                    );
+                    )
+                );
             }
-            else break;
+            else
+            {
+                break;
+            }
         }
     }
 
@@ -78,7 +90,7 @@ internal static class DayTwo
             'X' => 1,
             'Y' => 2,
             'Z' => 3,
-            _ => throw new Exception("Wrong Input, Check Data"),
+            _ => throw new Exception("Wrong Input, Check Data")
         };
 
         return playerWinScore + playScore;
@@ -112,6 +124,8 @@ internal static class DayTwo
             _ => throw new Exception("Wrong Input, Check Data")
         };
 
-        return CheckScore(new Moves(moves.OpponentChoice, playerMove));
+        return CheckScore(moves with { PlayerChoice = playerMove });
     }
+
+    private record Moves(char OpponentChoice, char PlayerChoice);
 }
