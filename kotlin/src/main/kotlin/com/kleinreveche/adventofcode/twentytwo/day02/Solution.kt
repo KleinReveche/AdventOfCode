@@ -1,34 +1,36 @@
-package com.kleinreveche.adventofcode.twentytwo
+package com.kleinreveche.adventofcode.twentytwo.day02
 
-import com.kleinreveche.adventofcode.Solver
-import com.kleinreveche.adventofcode.Utils
+import com.kleinreveche.adventofcode.lib.ISolution
+import com.kleinreveche.adventofcode.lib.Problem
+import com.kleinreveche.adventofcode.lib.Year
 
-/** --- Day 2: Rock Paper Scissors --- https://adventofcode.com/2022/day/2 */
-class DayTwo : Solver {
+@Problem(year = Year.TwentyTwo, day = "Day02", name = "Rock Paper Scissors")
+class Solution(private val input: String) : ISolution {
 
-    data class DayTwoMoves(val opponent: Char, val player: Char)
+    private val moves = parseData()
+    private val scores = mutableListOf<Int>()
+    private val secondScores = mutableListOf<Int>()
 
-    override fun solve() {
-        val moves = parseData()
-        val scores = mutableListOf<Int>()
-        val secondScores = mutableListOf<Int>()
-
+    override fun partOne(): Any {
         moves.forEach { it ->
             it.forEach {
                 scores.add(calculateScore(it))
                 secondScores.add(calculateScoreWithAltStrategy(it))
             }
         }
-
-        println(" --- 2022 Day 2: Rock Paper Scissors ---\n")
-        println("   Your score is ${scores.sum()}")
-        println("   After the new instructions, your new score is ${secondScores.sum()}\n")
+        return "Your score is ${scores.sum()}"
     }
 
-    override fun parseData(): MutableList<List<DayTwoMoves>> {
+    override fun partTwo(): Any {
+        return "After the new instructions, your new score is ${secondScores.sum()}"
+    }
+
+    data class DayTwoMoves(val opponent: Char, val player: Char)
+
+    private fun parseData(): MutableList<List<DayTwoMoves>> {
         val moves = mutableListOf<List<DayTwoMoves>>()
         var currentMovesList = mutableListOf<DayTwoMoves>()
-        val lines = Utils.readInput("twentytwo", "day02")!!.trim().lines()
+        val lines = input.trim().lines()
 
         lines.forEach { line ->
             if (line.isBlank()) {
@@ -83,9 +85,5 @@ class DayTwo : Solver {
         }
 
         return calculateScore(DayTwoMoves(moves.opponent, playerMove))
-    }
-
-    override fun parseData(input: Int): Any {
-        return 0
     }
 }

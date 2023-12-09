@@ -1,9 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("io.ktor.plugin") version "2.3.4"
-    id("com.diffplug.spotless") version "6.21.0" apply false
-    kotlin("jvm") version "1.9.0"
+    id("com.diffplug.spotless") version "6.23.3"
+    kotlin("jvm") version "1.9.21"
     application
 }
 
@@ -16,6 +15,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    implementation("org.reflections:reflections:0.10.2")
 }
 
 tasks.test {
@@ -23,23 +23,17 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions.jvmTarget = "17"
 }
 
 application {
     mainClass.set("com.kleinreveche.adventofcode.AdventOfCodeKt")
 }
 
-tasks.register<Copy>("copyInputs") {
-
-    from("../inputs")
-    include("**/*.txt")
-    into("src/main/resources/inputs")
-}
-
-
-tasks.processResources {
-    dependsOn("copyInputs")
+sourceSets {
+    getByName("main") {
+        resources.srcDirs("../inputs")
+    }
 }
 
 subprojects {

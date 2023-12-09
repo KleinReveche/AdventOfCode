@@ -1,26 +1,27 @@
-package com.kleinreveche.adventofcode.twentytwo
+package com.kleinreveche.adventofcode.twentytwo.day07
 
-import com.kleinreveche.adventofcode.Solver
-import com.kleinreveche.adventofcode.Utils
+import com.kleinreveche.adventofcode.lib.ISolution
+import com.kleinreveche.adventofcode.lib.Problem
+import com.kleinreveche.adventofcode.lib.Year
 
-/** --- Day 7: No Space Left On Device --- */
-class DaySeven : Solver {
-    override fun solve() {
-        val rootDirectory: Directory = parseData()
-        val unusedSpace = 70_000_000 - rootDirectory.size
-        val neededSpace = 30_000_000 - unusedSpace
+@Problem(year = Year.TwentyTwo, day = "Day07", name = "No Space Left On Device")
+class Solution(private val input: String) : ISolution {
+    private val rootDirectory: Directory = parseData()
+    private val unusedSpace = 70_000_000 - rootDirectory.size
+    private val neededSpace = 30_000_000 - unusedSpace
 
+    override fun partOne(): Any {
         val totalDirSize = rootDirectory.find { it.size <= 100_000 }.sumOf { it.size }
-        val totalDirSizeToBeDeleted = rootDirectory.find { it.size >= neededSpace }.minBy { it.size }.size
-
-        println(" --- 2022 Day 7: No Space Left On Device ---\n")
-        println("   The sum of directories with a total size of at most 100,000 was $totalDirSize")
-        println("   The sum of the smallest directory that would free up enough space for the update was $totalDirSizeToBeDeleted\n")
-
+        return "The sum of directories with a total size of at most 100,000 was $totalDirSize"
     }
 
-    override fun parseData(): Directory {
-        val lines = Utils.readInput("twentytwo", "day07")!!.trim().lines()
+    override fun partTwo(): Any {
+        val totalDirSizeToBeDeleted = rootDirectory.find { it.size >= neededSpace }.minBy { it.size }.size
+        return "The sum of the smallest directory that would free up enough space for the update was $totalDirSizeToBeDeleted"
+    }
+
+    private fun parseData(): Directory {
+        val lines = input.trim().lines()
         val directoryCallStack = ArrayDeque<Directory>().apply { add(Directory("/")) }
 
         lines.forEach { item ->
@@ -48,8 +49,7 @@ class DaySeven : Solver {
     class Directory(val name: String) {
         private val subDirs: MutableMap<String, Directory> = mutableMapOf()
         private var sizeOfFiles: Int = 0
-        val size: Int
-            get() = sizeOfFiles + subDirs.values.sumOf { it.size }
+        val size: Int get() = sizeOfFiles + subDirs.values.sumOf { it.size }
 
         fun addFile(size: Int) {
             sizeOfFiles += size
@@ -59,9 +59,5 @@ class DaySeven : Solver {
 
         fun find(predicate: (Directory) -> Boolean): List<Directory> =
             subDirs.values.filter(predicate) + subDirs.values.flatMap { it.find(predicate) }
-    }
-
-    override fun parseData(input: Int): Any {
-        return 0
     }
 }

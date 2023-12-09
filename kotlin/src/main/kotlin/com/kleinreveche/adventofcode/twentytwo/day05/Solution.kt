@@ -1,30 +1,24 @@
-package com.kleinreveche.adventofcode.twentytwo
+package com.kleinreveche.adventofcode.twentytwo.day05
 
-import com.kleinreveche.adventofcode.Solver
-import com.kleinreveche.adventofcode.Utils
+import com.kleinreveche.adventofcode.lib.ISolution
+import com.kleinreveche.adventofcode.lib.Problem
+import com.kleinreveche.adventofcode.lib.Year
+import com.kleinreveche.adventofcode.showMore
 import kotlin.collections.component1
 import kotlin.collections.component2
 
+@Problem(year = Year.TwentyTwo, day = "Day05", name = "Supply Stacks")
+class Solution(private val input: String) : ISolution {
+    private val data = parseData()
+    private val crateMap = flipCrateTableMap(data.first)
 
-/** --- Day 5: Supply Stacks --- https://adventofcode.com/2022/day/5 */
-class DayFive(private val showMore: Boolean = false) : Solver {
-
-    data class SupplyCrateMoves(val crateCount: Int, val originColumn: Int, val destColumn: Int)
-
-    override fun solve() {
-
-        val (movesList, inputCrateMap) = parseData()
-        val crateMap = flipCrateTableMap(inputCrateMap)
-        val finalCrateMap = moveCrates(crateMap, movesList)
-        val finalCrateMapNotReversed = moveCrates(crateMap, movesList, false)
+    override fun partOne(): Any {
         var topCrateLetters = ""
-        var topCrateLettersNotReversed = ""
-
-        println(" --- 2022 Day 5: Supply Stacks ---\n")
+        val finalCrateMap = moveCrates(crateMap, data.second)
 
         if (showMore) {
             println("   Supply Crates:")
-            for (row in inputCrateMap) {
+            for (row in data.first) {
                 print("   ")
                 for (cell in row) {
                     print("[${cell.ifEmpty { " " }}] ")
@@ -47,6 +41,20 @@ class DayFive(private val showMore: Boolean = false) : Solver {
                 }
                 println()
             }
+            println()
+        }
+
+        finalCrateMap.forEach {
+            topCrateLetters += it.last()
+        }
+        return "After the Rearrangement procedure was done, the top crates are: $topCrateLetters"
+    }
+
+    override fun partTwo(): Any {
+        var topCrateLettersNotReversed = ""
+        val finalCrateMapNotReversed = moveCrates(crateMap, data.second, false)
+
+        if (showMore) {
             println("\n   Final Supply Crate Map with New Crate")
             for (row in finalCrateMapNotReversed) {
                 print("   ")
@@ -57,19 +65,18 @@ class DayFive(private val showMore: Boolean = false) : Solver {
             }
             println()
         }
-        finalCrateMap.forEach {
-            topCrateLetters += it.last()
-        }
+
         finalCrateMapNotReversed.forEach {
             topCrateLettersNotReversed += it.last()
         }
-        println("   After the Rearrangement procedure was done, the top crates are: $topCrateLetters")
-        println("   Due to the upgrade of the crane to the new CrateMover 9001, the new top crates are: $topCrateLettersNotReversed")
-        println()
+
+        return "Due to the upgrade of the crane to the new CrateMover 9001, the new top crates are: $topCrateLettersNotReversed"
     }
 
-    override fun parseData(): Pair<List<SupplyCrateMoves>, Array<Array<String>>> {
-        val lines = Utils.readInput("twentytwo", "day05")!!.lines()
+    data class SupplyCrateMoves(val crateCount: Int, val originColumn: Int, val destColumn: Int)
+
+    private fun parseData(): Pair<Array<Array<String>>, List<SupplyCrateMoves>> {
+        val lines = input.lines()
         val separatedItems = mutableListOf<SupplyCrateMoves>()
         val crateTableMap = mutableListOf<Array<String>>()
         val crateTemp = mutableListOf<String>()
@@ -97,7 +104,7 @@ class DayFive(private val showMore: Boolean = false) : Solver {
                 }
             }
         }
-        return Pair(separatedItems, crateTableMap.toTypedArray())
+        return Pair(crateTableMap.toTypedArray(), separatedItems)
     }
 
     private fun moveCrates(
@@ -147,9 +154,5 @@ class DayFive(private val showMore: Boolean = false) : Solver {
         val newNumRows = newTable.size
 
         return List(newNumRows) { newTable[it].reversedArray().toList() }
-    }
-
-    override fun parseData(input: Int): Any {
-        return 0
     }
 }

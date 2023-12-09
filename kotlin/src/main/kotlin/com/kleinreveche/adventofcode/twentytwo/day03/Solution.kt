@@ -1,26 +1,27 @@
-package com.kleinreveche.adventofcode.twentytwo
+package com.kleinreveche.adventofcode.twentytwo.day03
 
-import com.kleinreveche.adventofcode.Solver
-import com.kleinreveche.adventofcode.Utils
+import com.kleinreveche.adventofcode.lib.ISolution
+import com.kleinreveche.adventofcode.lib.Problem
+import com.kleinreveche.adventofcode.lib.Year
 
-/** --- Day 3: Rucksack Reorganization --- https://adventofcode.com/2022/day/3 */
-class DayThree : Solver {
+@Problem(year = Year.TwentyTwo, day = "Day03", name = "Rucksack Reorganization")
+class Solution(private val input: String) : ISolution {
+    private val data = parseData()
+
+    override fun partOne(): Any {
+        return "The sum of all item type priorities of all the Elves' rucksack are: ${data.first}"
+    }
+
+    override fun partTwo(): Any {
+        return "Also, all item type priorities of three grouped Elves' rucksack are: ${data.second}"
+    }
 
     private data class DayThreeItemList(val item1: String, val item2: String, val combined: String)
 
-    override fun solve() {
-        val (sum, groupedSum) = parseData()
-
-        println(" --- 2022 Day 3: Rucksack Reorganization ---\n")
-        println("   The sum of all item type priorities of all the Elves' rucksack are: $sum")
-        println("   Also, all item type priorities of three grouped Elves' rucksack are: $groupedSum\n")
-    }
-
-    override fun parseData(): Pair<Int, Int> {
+    private fun parseData(): Pair<Int, Int> {
         var sum = 0
         var groupedSum = 0
-
-        val items = Utils.readInput("twentytwo", "day03")!!.trim().lines()
+        val items = input.trim().lines()
         val separatedItems = mutableListOf<DayThreeItemList>()
 
         items.forEach { item ->
@@ -51,9 +52,5 @@ class DayThree : Solver {
             in 'A'..'Z' -> commonLetter.first() - 'A' + 27
             else -> throw IllegalArgumentException("Invalid character: $commonLetter.first()")
         }
-    }
-
-    override fun parseData(input: Int): Any {
-        return 0
     }
 }
