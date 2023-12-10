@@ -1,52 +1,44 @@
-﻿namespace AdventOfCode.TwentyTwo.Day04;
+﻿using System.Text.RegularExpressions;
+
+namespace AdventOfCode.TwentyTwo.Day04;
 
 [Problem(Year.TwentyTwo, "Day04", "Camp Cleanup")]
-public class Solution(string input): ISolution
+public partial class Solution(string input): ISolution
 {
     public object PartOne()
     {
-        var inRangeCount = Solve(input, false);
+        var inRangeCount = Solve(false);
         return $"The Assignment Pairs that one range fully contain the other are: {inRangeCount}";
     }
 
     public object PartTwo()
     {
-        var overlappedRangeCount = Solve(input, true);
+        var overlappedRangeCount = Solve(true);
         return $"The Assignment Pairs where the ranges overlap are: {overlappedRangeCount}";
     }
 
-    private static int Solve(string input, bool isOverlapped)
+    private int Solve(bool isOverlapped)
     {
         var inRange = 0;
         var overlappedRange = 0;
-
-        StringReader inputLines = new(input);
-        while (true)
+        var lines = input.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+        var regex = PairsRegex();
+        
+        foreach (var line in lines)
         {
-            var line = inputLines.ReadLine();
+            var match = regex.Match(line).Groups;
+            var start1 = int.Parse(match[1].Value);
+            var end1 = int.Parse(match[2].Value);
+            var start2 = int.Parse(match[3].Value);
+            var end2 = int.Parse(match[4].Value);
 
-            if (line != null)
-            {
-                var lineSplit = line.Split(',');
-                var part1 = lineSplit[0].Split('-');
-                var part2 = lineSplit[1].Split('-');
-
-                var start1 = int.Parse(part1[0]);
-                var end1 = int.Parse(part1[1]);
-                var start2 = int.Parse(part2[0]);
-                var end2 = int.Parse(part2[1]);
-
-                if ((start1 >= start2) && (end1 <= end2) || ((start2 >= start1) && (end2 <= end1)))
-                {
-                    inRange++;
-                }
-
-                if (end1 >= start2 && start1 <= end2)
-                    overlappedRange++;
-            }
-            else break;
+            if (start1 >= start2 && end1 <= end2 || (start2 >= start1 && end2 <= end1)) inRange++;
+            if (end1 >= start2 && start1 <= end2) overlappedRange++;
         }
 
         return isOverlapped ? overlappedRange : inRange;
     }
+
+    [GeneratedRegex(@"(\d+)-(\d+),(\d+)-(\d+)")]
+    private static partial Regex PairsRegex();
 }

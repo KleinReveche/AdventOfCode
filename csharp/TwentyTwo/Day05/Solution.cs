@@ -1,87 +1,79 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace AdventOfCode.TwentyTwo.Day05;
 
 [Problem(Year.TwentyTwo, "Day05", "Supply Stacks")]
-public class Solution(string input) : ISolution
+public partial class Solution(string input) : ISolution
 {
     public object PartOne()
     {
-        var crates = Solve(true);
-        var topCrateLetters = new string(crates.Select(x => x.Value.Last()).ToArray());
+        var crates = Solve(false);
+        var topCrateLetters = new string(crates.Select(x => x.Value.First()).ToArray());
 
         return $"After the Rearrangement procedure was done, the top crates are: {topCrateLetters}";
     }
 
     public object PartTwo()
     {
-        var crates = Solve(false);
-        var topCrateLetters = new string(crates.Select(x => x.Value.Last()).ToArray());
+        var crates = Solve(true);
+        var topCrateLetters = new string(crates.Select(x => x.Value.First()).ToArray());
 
         return $"Due to the upgrade of the crane to the new CrateMover 9001, the new top crates are: {topCrateLetters}";
     }
 
     private Dictionary<int, Stack<char>> Solve(bool isUpgraded)
     {
-        ReadDayFiveData(out var supplyCrateMoves, out var crateTableStack);
-        var crateStack = RotateDictionary(crateTableStack);
+        var (crateTableStack, supplyCrateMoves) = ReadDayFiveData();
+        var crateStack = RotateDictionary(crateTableStack); 
         return CrateMover9000(crateStack, supplyCrateMoves, isUpgraded);
     }
 
-    private void ReadDayFiveData(out List<SupplyCrateMoves> supplyCrateMoves,
-        out Dictionary<int, Stack<char>> crateTableStack)
+    private (Dictionary<int, Stack<char>> crateTableStack, List<SupplyCrateMoves> supplyCrateMoves) ReadDayFiveData()
     {
-        List<SupplyCrateMoves> separatedItems = [];
-        Dictionary<int, Stack<char>> crateTableStackTemp = new();
+        List<SupplyCrateMoves> supplyCrateMoves = [];
+        Dictionary<int, Stack<char>> crateTableStack = new();
         var currentCrateIndex = 0;
-        StringReader inputLines = new(input);
+        
+        var lines = input.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+        var moveRegex = MoveListRegex();
 
-        while (true)
+        foreach (var line in lines)
         {
-            var line = inputLines.ReadLine();
+            if (line.StartsWith(" 1")) continue;
+            var match = moveRegex.Match(line);
 
-            if (line != null)
+            if (match.Success)
             {
-                if (line.StartsWith("move"))
-                {
-                    var lineSplit = line.Trim().Split(" from ");
-                    var crateCount = int.Parse(lineSplit[0].Replace("move ", string.Empty));
-                    var origDest = lineSplit[1].Split(" to ");
-                    separatedItems.Add(new SupplyCrateMoves(crateCount, int.Parse(origDest[0]) - 1,
-                        int.Parse(origDest[1]) - 1));
-                }
-                else
-                {
-                    if (!line.Contains('[')) continue;
-                    var crate = new Stack<char>();
-                    var crateTemp = new StringBuilder();
-
-                    for (var i = 0; i <= line.Length - 1; i++)
-                    {
-                        var t = line[i];
-                        crateTemp.Append(t);
-
-                        if (crateTemp.Length == 4 || i == line.Length - 1)
-                        {
-                            if (crateTemp[1] == ' ') crate.Push(' ');
-                            crateTemp.Clear();
-                        }
-
-                        if (t != ' ' && t != '[' && t != ']')
-                            crate.Push(t);
-                    }
-
-                    crateTableStackTemp.Add(currentCrateIndex++, crate);
-                }
+                var crateCount = int.Parse(match.Groups[1].Value);
+                var origin = int.Parse(match.Groups[2].Value) - 1;
+                var dest = int.Parse(match.Groups[3].Value) - 1;
+                
+                supplyCrateMoves.Add(new SupplyCrateMoves(crateCount, origin, dest));
+                continue;
             }
-            else
+            
+            var crate = new Stack<char>();
+            var crateTemp = new StringBuilder();
+
+            for (var i = 0; i <= line.Length - 1; i++)
             {
-                break;
+                var t = line[i];
+                crateTemp.Append(t);
+
+                if (crateTemp.Length == 4 || i == line.Length - 1)
+                {
+                    if (crateTemp[1] == ' ') crate.Push(' ');
+                    crateTemp.Clear();
+                }
+
+                if (t != ' ' && t != '[' && t != ']') crate.Push(t);
             }
+
+            crateTableStack.Add(currentCrateIndex++, crate);
         }
-
-        crateTableStack = crateTableStackTemp;
-        supplyCrateMoves = separatedItems;
+        
+        return (crateTableStack, supplyCrateMoves);
     }
 
     private static Dictionary<int, Stack<char>> CrateMover9000(Dictionary<int, Stack<char>> crateStack,
@@ -92,30 +84,18 @@ public class Solution(string input) : ISolution
             // move the last n crates from the origin stack to the destination stack
             var originStack = crateStack[origin];
             var destStack = crateStack[dest];
-            var cratesToMove = new Stack<char>();
+            var cratesToMove = new Stack<char>(); 
 
             for (var i = 0; i < n; i++) cratesToMove.Push(originStack.Pop());
 
-            if (!isUpgraded)
+            if (!isUpgraded) cratesToMove = new Stack<char>(cratesToMove);
+            foreach (var crate in cratesToMove)
             {
-                var cratesToMoveTemp = new Stack<char>();
-                while (cratesToMove.Count > 0) cratesToMoveTemp.Push(cratesToMove.Pop());
-                cratesToMove = cratesToMoveTemp;
+                destStack.Push(crate);
             }
-
-            while (cratesToMove.Count > 0) destStack.Push(cratesToMove.Pop());
-
-            // update the stacks
+            
             crateStack[origin] = originStack;
             crateStack[dest] = destStack;
-        }
-
-        for (var index = 0; index < crateStack.Count; index++)
-        {
-            var stack = crateStack[index];
-            foreach (var letter in stack) Console.Write(letter);
-
-            Console.WriteLine();
         }
 
         return crateStack;
@@ -127,17 +107,17 @@ public class Solution(string input) : ISolution
         var maxSize = crateTableStack.Max(x => x.Value.Count);
         var maxKey = crateTableStack.Max(x => x.Key) + 1;
 
-        for (var i = 0; i < maxSize; i++)
+        for (var i = maxSize - 1; i >= 0; i--)
         {
             Stack<char> newStack = new();
 
-            foreach (var (_, value) in crateTableStack)
+            foreach (var (_, value) in crateTableStack.Reverse())
             {
                 if (value.Count <= i) continue;
                 var element = value.ElementAt(i);
                 if (element != ' ') newStack.Push(element);
             }
-
+            
             newTableStack.Add(maxKey - i, newStack);
         }
 
@@ -145,4 +125,7 @@ public class Solution(string input) : ISolution
     }
 
     private record SupplyCrateMoves(int CrateCount, int Origin, int Dest);
+
+    [GeneratedRegex(@"move (\d+) from (\d+) to (\d+)")]
+    private static partial Regex MoveListRegex();
 }

@@ -33,9 +33,12 @@ public static class SolutionRunner
         var yearAttribute = solution.GetType().GetCustomAttribute<Problem>()?.Year.GetHashCode();
         var dayAttribute = solution.GetType().GetCustomAttribute<Problem>()?.Day.Replace("Day", "Day ");
         var nameAttribute = solution.GetType().GetCustomAttribute<Problem>()?.Name;
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(" --- {0} {1}: {2} ---\n", yearAttribute, dayAttribute, nameAttribute);
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
         Console.WriteLine(solution.PartOne());
         Console.WriteLine(solution.PartTwo());
+        Console.ResetColor();
         Console.WriteLine();
     }
 
@@ -108,7 +111,7 @@ public static class SolutionRunner
         var name = $"{nameof(AdventOfCode)}.{Enum.GetName(typeof(Year), year)}.{day}.input.in";
         var stream = assembly.GetManifestResourceStream(name)!;
         StreamReader reader = new(stream);
-        return reader.ReadToEnd().Replace("\r\n", "\n");
+        return reader.ReadToEnd().Trim().Replace("\r\n", "\n");
     }
 
     public static void RunWorkInProgressSolution()

@@ -6,13 +6,15 @@ public class Solution(string input) : ISolution
     public object PartOne()
     {
         var startPacketIndex = ProcessData(4);
-        return $"The characters that were needed to be processed before the first start-of-pocket were {startPacketIndex}";
+        return
+            $"The characters that were needed to be processed before the first start-of-pocket were {startPacketIndex}";
     }
 
     public object PartTwo()
     {
         var startMessageIndex = ProcessData(14);
-        return $"The characters that were needed to be processed before the first start-of-message were {startMessageIndex}\n";
+        return
+            $"The characters that were needed to be processed before the first start-of-message were {startMessageIndex}\n";
     }
 
     private int ProcessData(int charNum)

@@ -7,7 +7,7 @@ public partial class Solution : ISolution
 {
     private readonly string[] _data;
     private readonly Dictionary<Symbol, HashSet<int>> _numbers;
-    private readonly List<Symbol> _symbols;
+    private readonly Symbol[] _symbols;
 
     public Solution(string input)
     {
@@ -34,38 +34,36 @@ public partial class Solution : ISolution
 
     private Dictionary<Symbol, HashSet<int>> GetNumbers()
     {
-        var numbers = new Dictionary<Symbol, HashSet<int>>();
-        var regex = SymbolRegex();
+        var dict = new Dictionary<Symbol, HashSet<int>>();
 
         foreach (var symbol in _symbols)
+        {
+            var numbers = new HashSet<int>();
             for (var y = symbol.Y - 1; y <= symbol.Y + 1; y++)
-            for (var x = symbol.X - 1; x <= symbol.X + 1; x++)
             {
-                if (x == symbol.X && y == symbol.Y) continue;
-                if (!int.TryParse(_data[y][x].ToString(), out _)) continue;
-
-                var left = x - 1;
-                while (left >= 0 && _data[y][left] != '.' && !regex.IsMatch(_data[y][left].ToString())) left--;
-
-                var right = x + 1;
-                while (right < _data[y].Length && _data[y][right] != '.' &&
-                       !regex.IsMatch(_data[y][right].ToString())) right++;
-
-                var number = int.Parse(_data[y].Substring(left + 1, right - left - 1));
-
-                if (!numbers.TryGetValue(symbol, out var set))
+                for (var x = symbol.X - 1; x <= symbol.X + 1; x++)
                 {
-                    set = new HashSet<int>();
-                    numbers.Add(symbol, set);
+                    if (x == symbol.X && y == symbol.Y) continue;
+                    if (!int.TryParse(_data[y][x].ToString(), out _)) continue;
+
+                    var left = x - 1;
+                    while (left >= 0 && char.IsDigit(_data[y][left])) left--;
+
+                    var right = x + 1;
+                    while (right < _data[y].Length && char.IsDigit(_data[y][right])) right++;
+
+                    var number = int.Parse(_data[y].Substring(left + 1, right - left - 1));
+
+                    numbers.Add(number);
                 }
-
-                set.Add(number);
             }
+            dict.Add(symbol, numbers);
+        }
 
-        return numbers;
+        return dict;
     }
 
-    private List<Symbol> FindSymbols()
+    private Symbol[] FindSymbols()
     {
         var symbols = new List<Symbol>();
         var regex = SymbolRegex();
@@ -77,7 +75,7 @@ public partial class Solution : ISolution
             if (symbol.Success) symbols.Add(new Symbol(symbol.Value[0], x, y));
         }
 
-        return symbols;
+        return symbols.ToArray();
     }
 
     [GeneratedRegex(@"[^.0-9]")]

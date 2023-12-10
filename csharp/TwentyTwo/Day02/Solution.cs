@@ -19,9 +19,7 @@ public class Solution(string input) : ISolution
     {
         var scores = 0;
         var altStrategyScore = 0;
-        StringReader inputLines = new(input);
-        List<Moves> movesList = [];
-        ReadMoves(movesList, inputLines);
+        var movesList = ReadMoves();
 
         foreach (var moves in movesList)
         {
@@ -32,27 +30,15 @@ public class Solution(string input) : ISolution
         return isAlternateStrategyUsed ? altStrategyScore : scores;
     }
 
-    private static void ReadMoves(ICollection<Moves> movesList, TextReader inputLines)
+    private Moves[] ReadMoves()
     {
-        while (true)
+        var lines = input.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+        
+        return lines.Select(line =>
         {
-            var line = inputLines.ReadLine();
-
-            if (line != null)
-            {
-                var lineSplit = line.Split(' ');
-                movesList.Add(
-                    new Moves(
-                        char.Parse(lineSplit[0]),
-                        char.Parse(lineSplit[1])
-                    )
-                );
-            }
-            else
-            {
-                break;
-            }
-        }
+            var lineSplit = line.Split(' ');
+            return new Moves(char.Parse(lineSplit[0]), char.Parse(lineSplit[1]));
+        }).ToArray();
     }
 
     private static int CheckScore(Moves moves)

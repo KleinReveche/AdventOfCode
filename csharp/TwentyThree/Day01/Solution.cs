@@ -29,7 +29,7 @@ public class Solution(string input) : ISolution
 
     public object PartTwo()
     {
-        const string regexPattern = @"|one|two|three|four|five|six|seven|eight|nine|1|2|3|4|5|6|7|8|9";
+        const string regexPattern = @"one|two|three|four|five|six|seven|eight|nine|1|2|3|4|5|6|7|8|9";
         var solution = Solve(_lines, regexPattern);
 
         return $"The sum of all of the calibration values with numbers spelt is {solution}";
