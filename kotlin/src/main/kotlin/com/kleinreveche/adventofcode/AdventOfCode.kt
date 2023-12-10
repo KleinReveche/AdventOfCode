@@ -5,6 +5,7 @@ import com.kleinreveche.adventofcode.lib.SolutionRunner
 import com.kleinreveche.adventofcode.lib.Year
 
 val runner = SolutionRunner()
+var runAllSolutions = false
 var showMore = false
 
 fun main() {
@@ -19,6 +20,7 @@ fun main() {
     val inputs = Inputs()
     val year = inputs.getUserInput("Year to solve: ", Year::class.java).lowercase()
     inputs.handleYearInput(year)
+    if (runAllSolutions) return
 
     val day = inputs.getUserInput("Day to solve [1-25]: ", Int::class.java).lowercase()
     inputs.handleDayInput(day, year)

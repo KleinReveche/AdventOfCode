@@ -1,5 +1,6 @@
 package com.kleinreveche.adventofcode.lib
 
+import com.kleinreveche.adventofcode.runAllSolutions
 import com.kleinreveche.adventofcode.runner
 import java.lang.reflect.Type
 
@@ -8,7 +9,10 @@ class Inputs {
     fun handleYearInput(input: String) {
         when (input) {
             "exit" -> return
-            "all" -> runner.runAllSolutions()
+            "all" -> {
+                runner.runAllSolutions()
+                runAllSolutions = true
+            }
         }
     }
 

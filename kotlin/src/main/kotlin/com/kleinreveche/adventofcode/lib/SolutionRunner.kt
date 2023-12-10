@@ -3,6 +3,7 @@ package com.kleinreveche.adventofcode.lib
 import org.reflections.Reflections
 
 class SolutionRunner {
+    private val disableLogger = System.setProperty("org.slf4j.simpleLogger.log.org.reflections", "off")
     private val reflections = Reflections("com.kleinreveche.adventofcode")
     private val solutions = reflections.getSubTypesOf(ISolution::class.java)
 
@@ -13,8 +14,9 @@ class SolutionRunner {
                 val input = readInput(problem.year.name, problem.day)
                 val constructor = solutionClass.getConstructor(String::class.java)
                 constructor.newInstance(input)
-            }.sortedBy { it::class.java.getAnnotation(Problem::class.java).year.yearNum }
+            }
             .sortedBy { it::class.java.getAnnotation(Problem::class.java).day }
+            .sortedBy { it::class.java.getAnnotation(Problem::class.java).year.yearNum }
     }
 
     fun runSolution(year: Year, day: String) {

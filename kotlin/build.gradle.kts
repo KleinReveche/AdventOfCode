@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     id("com.diffplug.spotless") version "6.23.3"
     kotlin("jvm") version "1.9.21"
@@ -16,14 +14,15 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation("org.reflections:reflections:0.10.2")
+    implementation("org.slf4j:slf4j-simple:1.7.36")
 }
 
 tasks.test {
     useJUnitPlatform()
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
+kotlin {
+    jvmToolchain(17)
 }
 
 application {
@@ -44,6 +43,9 @@ subprojects {
             targetExclude("build/**/*.kt")
 
             ktlint()
+            trimTrailingWhitespace()
+            indentWithSpaces()
+            endWithNewline()
         }
 
         kotlinGradle {
