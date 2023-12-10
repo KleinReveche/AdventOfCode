@@ -1,5 +1,4 @@
-﻿using AdventOfCode.Lib;
-
+﻿global using AdventOfCode.Lib;
 namespace AdventOfCode;
 
 public static class Application

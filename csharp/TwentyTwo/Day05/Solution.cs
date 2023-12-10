@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using AdventOfCode.Lib;
 
 namespace AdventOfCode.TwentyTwo.Day05;
 

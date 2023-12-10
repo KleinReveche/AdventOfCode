@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using AdventOfCode.Lib;
 
 namespace AdventOfCode.TwentyThree.Day02;
 

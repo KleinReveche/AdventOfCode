@@ -1,6 +1,4 @@
-﻿using AdventOfCode.Lib;
-
-namespace AdventOfCode.TwentyTwo.Day06;
+﻿namespace AdventOfCode.TwentyTwo.Day06;
 
 [Problem(Year.TwentyTwo, "Day06", "Tuning Trouble")]
 public class Solution(string input) : ISolution

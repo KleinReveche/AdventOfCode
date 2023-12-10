@@ -1,6 +1,4 @@
-﻿using AdventOfCode.Lib;
-
-namespace AdventOfCode.TwentyTwo.Day03;
+﻿namespace AdventOfCode.TwentyTwo.Day03;
 
 [Problem(Year.TwentyTwo, "Day03", "Rucksack Reorganization")]
 public class Solution(string input) : ISolution

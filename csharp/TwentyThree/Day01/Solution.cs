@@ -1,5 +1,4 @@
 using System.Text.RegularExpressions;
-using AdventOfCode.Lib;
 
 namespace AdventOfCode.TwentyThree.Day01;
 
@@ -22,7 +21,7 @@ public class Solution(string input) : ISolution
 
     public object PartOne()
     {
-        const string regexPattern = @"\d|1|2|3|4|5|6|7|8|9";
+        const string regexPattern = @"1|2|3|4|5|6|7|8|9";
         var solution = Solve(_lines, regexPattern);
 
         return $"The sum of all of the calibration values is {solution}";
@@ -30,7 +29,7 @@ public class Solution(string input) : ISolution
 
     public object PartTwo()
     {
-        const string regexPattern = @"\d|one|two|three|four|five|six|seven|eight|nine|1|2|3|4|5|6|7|8|9";
+        const string regexPattern = @"|one|two|three|four|five|six|seven|eight|nine|1|2|3|4|5|6|7|8|9";
         var solution = Solve(_lines, regexPattern);
 
         return $"The sum of all of the calibration values with numbers spelt is {solution}";
